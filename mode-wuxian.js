@@ -22,7 +22,7 @@ window.GameAPI.registerMode('wuxian', (function () {
 
   const TOLERANCE_ANGLE = 0.2;
   const TOLERANCE_DIST = 1.0;
-  const WIN_COUNT = 50;
+  const WIN_COUNT = 30;
 
   const LANES = [
     { name: '左3号方位',  angle: -Math.PI * 0.15 },
@@ -85,7 +85,7 @@ window.GameAPI.registerMode('wuxian', (function () {
 
     if (state.rockRemainCount <= 0) {
       state.targetRock = Math.floor(Math.random() * 2);
-      state.rockRemainCount = 2 + Math.floor(Math.random() * 4);
+      state.rockRemainCount = 2 + Math.floor(Math.random() * 3);
     } else {
       state.rockRemainCount--;
     }

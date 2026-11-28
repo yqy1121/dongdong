@@ -11,7 +11,8 @@ window.GameAPI.registerMode('baiyou', (function () {
   
   const SPHERE_PERIOD = 6.0;         
   const WAVE_SPEED = 55;            
-  const WAVE_THICKNESS_M = 3;        
+  const WAVE_THICKNESS_M = 3;
+  const TARGET_RADIUS_M = 30;        
 
   const SOURCE_SEED = [
     { x: -400, y: 600 },    
@@ -169,7 +170,7 @@ window.GameAPI.registerMode('baiyou', (function () {
       isJumping = true;
       jumpTimer = 0.15;
 
-      if (playerY <= TARGET_Y + 1) win();
+      if (Math.hypot(playerX, playerY) <= TARGET_RADIUS_M) win();
     } else {
       fail();
     }
@@ -251,6 +252,11 @@ window.GameAPI.registerMode('baiyou', (function () {
     }
 
     const pTarget = worldToScreen(0, TARGET_Y);
+    ctx.strokeStyle = 'rgba(255, 100, 200, 0.6)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath(); ctx.arc(pTarget.sx, pTarget.sy, TARGET_RADIUS_M * scale, 0, Math.PI * 2); ctx.stroke();
+    ctx.setLineDash([]);
     ctx.fillStyle = 'rgba(212, 22, 19, 0.8)';
     ctx.beginPath(); ctx.arc(pTarget.sx, pTarget.sy, 6, 0, Math.PI * 2); ctx.fill();
 
@@ -305,6 +311,8 @@ window.GameAPI.registerMode('baiyou', (function () {
     }
 
     const pc = worldToMini(0, TARGET_Y);
+    ctx.strokeStyle = 'rgba(255, 100, 200, 0.7)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(pc.sx, pc.sy, TARGET_RADIUS_M * pc.scale, 0, Math.PI * 2); ctx.stroke();
     ctx.fillStyle = 'rgba(74, 255, 155, 0.8)'; ctx.beginPath(); ctx.arc(pc.sx, pc.sy, 5, 0, Math.PI * 2); ctx.fill();
 
     const pp = worldToMini(visualX, visualY);
